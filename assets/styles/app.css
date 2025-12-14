@@ -10,7 +10,6 @@ body {
 header {
     background-color: #A5B4FC;
     padding: 10px;
-    /* border: 2px solid black; */
     border-radius: 0px 0px 30px 30px;
     box-shadow: 0px 5px 15px gray;
 }
@@ -28,7 +27,6 @@ footer{
     background-color: #A5B4FC;
     padding: 16px;
     border-radius: 30px 30px 0px 0px;
-    /* border: 1px solid black; */
     box-shadow: 0px 5px 15px 10px gray;
 }
 
@@ -39,11 +37,22 @@ footer{
     border-radius: 5px;
     color: white;
     text-decoration: none;
+    border: none;
 }
 .sign{
     background-color: black;
 }
 .log{
     background-color: #A5B4FC;
+    color: #374151;
+}
+.submit {
+    background-color: #FBCFE8;
+    color: #374151;
+}.submit:hover {
+    transform: scale(1.1); 
+}
+.logout{
+    background-color: rgb(230, 112, 112);
     color: #374151;
 }
