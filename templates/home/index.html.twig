@@ -12,13 +12,11 @@
             <p>Ajoutez, modifiez et supprimez des contacts facilement.</p>
         </div>
         <div class="d-flex align-items-center card">
-            {% if app.user.avatar %}
-                <img src="{{ app.user.avatar
-                    ? asset( app.user.avatar)
-                    : asset('img/utilisateur.png') }}" alt="..." class="img-fluid">
+            {% if app.user is not null and app.user.avatar %}
+                <img src="{{ asset('img/avatar/' ~ app.user.avatar) }}" alt="..." class="img-fluid">
             {% else %}
                 <img src="{{ asset('img/utilisateur.png') }}" alt="..." class="img-fluid">
-            {%  endif %}
+            {% endif %}
             <h3>Personnaliser votre profil</h3>
             <p>Modifiez vos informations personnelles et votre photo de profil.</p>
         </div>

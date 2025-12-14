@@ -25,14 +25,22 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
-
+            
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
+
+            $uploadAvatar = $form->get('avatar')->getData();
+            $extension = $uploadAvatar->guessExtension();
+            $avatarName = 'avatar-' . uniqid() . '.' . $extension;
+            $dossier = __DIR__ .'/../../public/img/avatar';
+
+            $uploadAvatar->move($dossier, $avatarName);
+            $user->setAvatar($avatarName);
 
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // do anything else you need here, like send an email
+            // do anything else you need here, like send an email 
 
             return $security->login($user, UserAuthenticator::class, 'main');
         }
