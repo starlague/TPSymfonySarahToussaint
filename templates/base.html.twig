@@ -20,7 +20,7 @@
                 <h1>Carnet d'amis</h1>
                 <div class="ms-auto">
                     <a href="{{ path('app_login') }}" class="button log">Connexion<a/>
-                    <a href="{{ path('app_register') }}" class="button sign">Inscription<a/>
+                    <a href="{{ path('app_inscription') }}" class="button sign">Inscription<a/>
                 </div>
             </div>
             {% endblock %}
@@ -29,8 +29,8 @@
         <main>
             <nav>
                 <a href="{{ path('app_home') }}" class="button">Accueil</a>
+                <a href="{{ path('app_liste_utilisateurs') }}" class="button">Liste des utilisateurs</a>
                 <a href="{{ path('app_liste_amis') }}" class="button">Liste des amis</a>
-                <a href="" class="button">Liste des utilisateurs</a>
             </nav>
             {% block body %}{% endblock %}
         </main>

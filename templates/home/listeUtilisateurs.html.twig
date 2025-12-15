@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Carnet d'amis - Liste des utilisateurs{% endblock %}
+
+{% block body %}
+<div class="d-flex justify-content-center">
+    <h2>Liste des utilisateurs</h2>
+</div>
+
+<div class="d-grid w-75 mx-auto gap-5" style="grid-template-columns: repeat(5, 1fr);">
+    {% for u in users %}
+        <div class="card p-2 d-flex justify-content-center align-items-center">
+            <div>
+                <img src="{{ asset('img/avatar/' ~ u.avatar) }}" alt="..." class="img-fluid"> 
+            </div>
+            <div>
+                {{ u.username }} 
+            </div>
+            <button>Ajouter en ami</button>
+        </div> 
+    {% else %}
+        <li>Aucun utilisateur trouvé.</li>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -3,10 +3,13 @@
 {% block title %}Carnet d'amis - Inscription{% endblock %}
 
 {% block body %}
+    <div class="d-flex justify-content-center">
+        <h2>Formulaire d'inscription</h2>
+    </div>
 
     {{ form_errors(registrationForm) }}
     <div class="d-flex flex-column align-items-center">
-        <h2>Formulaire d'inscription</h2>
+       
         {{ form_start(registrationForm, { 
             attr: { class: 'w-50 ps-5' } }
         ) }}
@@ -23,8 +26,12 @@
                 attr: { class: 'form-control' }
             }) }}
         
-
-            <button type="submit" class="button submit mt-3">S'inscrire</button>
+            <div class="d-flex gap-3 mt-4">
+                <button type="submit" class="button submit">S'inscrire</button> 
+                <a href="{{ path('app_login') }}" class="button">Déjà inscrit ? Connectez-vous</a>
+   
+                <a href="{{ path('app_home') }}" class="button cancel ms-auto">Annuler</a>
+            </div>
         {{ form_end(registrationForm) }}
     </div>
 {% endblock %}
