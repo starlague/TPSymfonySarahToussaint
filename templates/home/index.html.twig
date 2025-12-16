@@ -8,12 +8,12 @@
 </div>
 <main>
     <div class="d-grid gap-5 p-5" style="grid-template-columns: repeat(3, 1fr);">
-        <div class="d-flex align-items-center card"> 
+        <div class="d-flex align-items-center card p-2"> 
             <img src="{{ asset('img/utilisateurs.png') }}" alt="..." class="img-fluid">
             <h3>Gérer vos amis</h3>
             <p>Ajoutez, modifiez et supprimez des contacts facilement.</p>
         </div>
-        <div class="d-flex align-items-center card">
+        <div class="d-flex align-items-center card p-2">
             {% if app.user is not null and app.user.avatar %}
                 <img src="{{ asset('img/avatar/' ~ app.user.avatar) }}" alt="..." class="img-fluid">
             {% else %}
@@ -21,9 +21,9 @@
             {% endif %}
             <h3>Personnaliser votre profil</h3>
             <p>Modifiez vos informations personnelles et votre photo de profil.</p>
-            <a href="" class="button mb-3">Voir votre profil</a>
+            <a href="{{ path('app_profil') }}" class="button mb-3">Voir votre profil</a>
         </div>
-        <div class="d-flex align-items-center card">
+        <div class="d-flex align-items-center card p-2">
             <img src="{{ asset('img/discuter.png') }}" alt="..." class="img-fluid">
             <h3>Nous contacter</h3>
             <p>Besoin d'aide? N'hésitez pas à nous contacter.</p>

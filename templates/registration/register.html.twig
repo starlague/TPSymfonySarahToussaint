@@ -10,21 +10,14 @@
     {{ form_errors(registrationForm) }}
     <div class="d-flex flex-column align-items-center">
        
-        {{ form_start(registrationForm, { 
-            attr: { class: 'w-50 ps-5' } }
-        ) }}
-            {{ form_row(registrationForm.username, {
-                attr: { class: 'form-control' }
-            }) }}
-            {{ form_row(registrationForm.avatar, {
-                attr: { class: 'form-control' }
-            }) }}
-            {{ form_row(registrationForm.email, {
-                attr: { class: 'form-control' }
-            }) }}
-            {{ form_row(registrationForm.plainPassword, {
-                attr: { class: 'form-control' }
-            }) }}
+        {{ form_start(registrationForm, { attr: { class: 'w-50' } }) }}
+            {{ form_row(registrationForm.username, {attr: { class: 'form-control' }}) }}
+
+            {{ form_row(registrationForm.avatar, {attr: { class: 'form-control' }}) }}
+
+            {{ form_row(registrationForm.email, {attr: { class: 'form-control' }}) }}
+
+            {{ form_row(registrationForm.plainPassword, {attr: { class: 'form-control' }}) }}
         
             <div class="d-flex gap-3 mt-4">
                 <button type="submit" class="button submit">S'inscrire</button> 

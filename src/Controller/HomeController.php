@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -21,14 +20,4 @@ final class HomeController extends AbstractController
         return $this->render('home/listeAmis.html.twig');
     }
 
-    #[Route('/utilisateurs', name:'app_liste_utilisateurs')]
-    public function listeUtilisateurs(UserRepository $user): Response {
-        $users = $user->findBy(
-            [],
-            ['username' => 'ASC']
-        );
-        return $this->render('home/listeUtilisateurs.html.twig', [
-            'users' => $users,
-        ]);
-    }
 }

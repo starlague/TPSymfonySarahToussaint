@@ -14,11 +14,13 @@
             <a href="{{ logout_path() }}" class="button logout">Se déconecter</a>
         </div>
     {% else %}
-        <h2 class="h3 mb-3 font-weight-normal">Veuillez-vous connecter.</h2>
+        <div class="d-flex justify-content-center align-items-center gap-3">
+            <h2 class="h3 mb-3 font-weight-normal">Veuillez-vous connecter.</h2>
+        </div>
     {% endif %}
 
     <div class="d-flex flex-column align-items-center">
-        <div class="w-50 ps-5">
+        <div class="w-50">
             <label for="inputEmail">Email :</label>
             <input type="text" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
             <label for="inputPassword">Mot de passe :</label>
@@ -33,7 +35,7 @@
 
             <div class="d-flex gap-3">
                 <button class="button submit" type="submit">Se connecter</button>
-                <a href="{{ path('app_inscription') }}" class="button">Pas encore inscrit ? Inscrivez-vous</a>
+                <a href="{{ path('app_register') }}" class="button">Pas encore inscrit ? Inscrivez-vous</a>
                 <a href="{{ path('app_home') }}" class="button cancel ms-auto">Annuler</a>
             </div>
         </div>

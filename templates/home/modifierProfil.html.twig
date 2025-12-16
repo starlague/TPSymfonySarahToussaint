@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Carnet d'amis - Modification de {{ user.username}} {% endblock %}
+
+{% block body %}
+    <div class="d-flex flex-column align-items-center">
+        <h2>Modification de votre profil</h2>
+    {{ form_start(form, { attr: { class: 'w-25 gap-3 d-flex flex-column' } }) }}
+            {{ form_row(form.username, {attr: { class: 'form-control' }}) }}
+
+            {% if user.avatar %}
+                <div class="d-flex justify-content-center">
+                    <img src="{{ asset('img/avatar/' ~ user.avatar) }}">
+                </div>
+            {% endif %}
+
+            {{ form_row(form.avatarFile, {attr: { class: 'form-control' }}) }}
+
+            <button type="submit" class"button submit">Enregistrer</button>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

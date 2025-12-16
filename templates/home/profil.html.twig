@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Carnet d'amis - Profil de {{ user.username}} {% endblock %}
+
+{% block body %}
+<div class="d-flex justify-content-center">
+    <div class="d-flex card w-25 align-items-center p-3">
+        <h2>Votre profil</h2>
+
+        <div>
+            <div>
+                <img src="{{ asset('img/avatar/' ~ app.user.avatar) }}" alt="..." class="img-fluid">
+            </div>
+            <div class="d-flex justify-content-center">
+                <p> {{ user.username }} </p>
+            </div>
+            <div class="d-flex justify-content-center">
+                <a href="{{ path('app_modifier_profil', { id: app.user.id }) }}" class="button">Modifier votre profil</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
