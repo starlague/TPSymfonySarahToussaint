@@ -37,7 +37,7 @@ class UserController extends AbstractController {
         ]);
     }
 
-    #[Route('/modifier/{id}', name:'app_modifier_profil')]
+    #[Route('/modifier/{id}', name:'app_modifier_profil', methods: ['GET', 'POST'])]
     public function modifierUtilisateur($id, EntityManagerInterface $em, Request $request, SluggerInterface $slugger, UserRepository $u): Response {
         $user = $u->find($id);
 
@@ -66,9 +66,7 @@ class UserController extends AbstractController {
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('app_profil', [
-                'user' => $user,
-            ]);
+            return $this->redirectToRoute('app_profil');
         }
 
         return $this->render('home/modifierProfil.html.twig', [

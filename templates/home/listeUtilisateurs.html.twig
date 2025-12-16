@@ -11,12 +11,12 @@
     {% for u in users %}
         <div class="card p-2 d-flex justify-content-center align-items-center">
             <div>
-                <img src="{{ asset('img/avatar/' ~ u.avatar) }}" alt="..." class="img-fluid"> 
+                <img src="{{ asset('img/avatar/' ~ u.avatar) }}" alt="..." class="img-fluid rounded-circle"> 
             </div>
             <div>
                 {{ u.username }} 
             </div>
-            <button>Ajouter en ami</button>
+            <button class="button">Ajouter en ami</button>
         </div> 
     {% else %}
         <li>Aucun utilisateur trouvé.</li>
