@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
@@ -42,6 +44,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $avatar = null;
 
     private ?File $avatarFile = null;
+
+    /**
+     * @var Collection<int, Friendship>
+     */
+    #[ORM\OneToMany(targetEntity: Friendship::class, mappedBy: 'requester')]
+    private Collection $friendshipSent;
+
+    /**
+     * @var Collection<int, Friendship>
+     */
+    #[ORM\OneToMany(targetEntity: Friendship::class, mappedBy: 'receiver')]
+    private Collection $friendshipReceived;
+
+    public function __construct()
+    {
+        $this->friendshipSent = new ArrayCollection();
+        $this->friendshipReceived = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -150,6 +170,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAvatarFile(?File $avatarFile): static
     {
         $this->avatarFile = $avatarFile;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Friendship>
+     */
+    public function getFriendshipSent(): Collection
+    {
+        return $this->friendshipSent;
+    }
+
+    public function addFriendshipSent(Friendship $receiver): static
+    {
+        if (!$this->friendshipSent->contains($receiver)) {
+            $this->friendshipSent->add($receiver);
+            $receiver->setRequester($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFriendshipSent(Friendship $receiver): static
+    {
+        if ($this->friendshipSent->removeElement($receiver)) {
+            // set the owning side to null (unless already changed)
+            if ($receiver->getRequester() === $this) {
+                $receiver->setRequester(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+    * @return Collection<int, Friendship>
+    */ 
+    public function getFriendshipReceived(): Collection
+    {
+        return $this->friendshipReceived;
+    }
+
+    public function addFriendshipReceived(Friendship $friendship): static
+    {
+        if (!$this->friendshipReceived->contains($friendship)) {
+            $this->friendshipReceived->add($friendship);
+            $friendship->setReceiver($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFriendshipReceived(Friendship $friendship): static
+    {
+        if ($this->friendshipReceived->removeElement($friendship)) {
+            // set the owning side to null (unless already changed)
+            if ($friendship->getReceiver() === $this) {
+                $friendship->setReceiver(null);
+            }
+        }
 
         return $this;
     }
