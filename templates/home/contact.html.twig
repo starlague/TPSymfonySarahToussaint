@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Carnet d'amis - Contact{% endblock %}
+
+{% block body %}
+    <div class="d-flex flex-column align-items-center pb-5">
+        <h2>Contact</h2>
+        {{ form_start(form, { attr: { class: 'w-25 gap-3 d-flex flex-column' }}) }}
+            {{ form_row(form.issue, {attr: { class: 'form-control' }}) }}
+            {{ form_row(form.email, {attr: { class: 'form-control' }}) }}
+            {{ form_row(form.message, {attr: { class: 'form-control' }}) }}
+            <div class="d-flex gap-3">
+                <button type="submit" class="button submit">Enregistrer</button>
+                <a href="{{ path('app_home') }}" class="button cancel ms-auto">Annuler</a>
+            </div>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

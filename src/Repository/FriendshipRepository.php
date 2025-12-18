@@ -30,8 +30,6 @@ class FriendshipRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    // public function pendindFriendships($user, Friendship $friendship): 
-
 //    /**
 //     * @return Friendship[] Returns an array of Friendship objects
 //     */
