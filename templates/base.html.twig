@@ -19,8 +19,12 @@
             <div class="d-flex align-items-center">
                 <h1>Carnet d'amis</h1>
                 <div class="ms-auto">
-                    <a href="{{ path('app_login') }}" class="button log">Connexion<a/>
-                    <a href="{{ path('app_register') }}" class="button sign">Inscription<a/>
+                    {% if app.user %}
+                        <a href="{{ path('app_logout') }}" class="button logout">Déconnexion</a>
+                    {% else %}
+                        <a href="{{ path('app_login') }}" class="button log">Connexion<a/>
+                        <a href="{{ path('app_register') }}" class="button sign">Inscription<a/>
+                    {% endif %}
                 </div>
             </div>
             {% endblock %}
@@ -30,7 +34,7 @@
             <nav>
                 <a href="{{ path('app_home') }}" class="button">Accueil</a>
                 <a href="{{ path('app_liste_utilisateurs') }}" class="button">Liste des utilisateurs</a>
-                <a href="{{ path('app_liste_amis') }}" class="button">Liste des amis</a>
+                <a href="" class="button">Demandes d'amis</a>
             </nav>
             {% block body %}{% endblock %}
         </main>

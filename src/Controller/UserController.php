@@ -15,6 +15,11 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class UserController extends AbstractController {
     #[Route('/utilisateurs', name:'app_liste_utilisateurs')]
     public function listeUtilisateurs(UserRepository $user): Response {
+        $currentUser = $this->getUser();
+        if (!$currentUser) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $users = $user->findBy(
             [],
             ['username' => 'ASC']

@@ -11,7 +11,8 @@
         <div class="d-flex align-items-center card p-2"> 
             <img src="{{ asset('img/utilisateurs.png') }}" alt="..." class="img-fluid">
             <h3>Gérer vos amis</h3>
-            <p>Ajoutez, modifiez et supprimez des contacts facilement.</p>
+            <p>Ajoutez et supprimez facilement vos amis.</p>
+            <a href="{{ path('app_liste_amis') }}" class="button">Voir votre liste d'amis</a>
         </div>
         <div class="d-flex align-items-center card p-2">
             {% if app.user is not null and app.user.avatar %}
@@ -27,6 +28,7 @@
             <img src="{{ asset('img/discuter.png') }}" alt="..." class="img-fluid">
             <h3>Nous contacter</h3>
             <p>Besoin d'aide? N'hésitez pas à nous contacter.</p>
+            <a href="" class="button">Nous contacter</a>
         </div>
     </div>
 </main>

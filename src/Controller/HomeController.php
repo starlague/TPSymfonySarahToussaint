@@ -15,9 +15,4 @@ final class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/amis', name: 'app_liste_amis')]
-    public function listeAmis(): Response {
-        return $this->render('home/listeAmis.html.twig');
-    }
-
 }

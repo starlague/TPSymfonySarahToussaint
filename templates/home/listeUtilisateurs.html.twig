@@ -16,7 +16,9 @@
             <div>
                 {{ u.username }} 
             </div>
-            <button class="button">Ajouter en ami</button>
+            {% if app.user.id != u.id %}
+                <a href="{{ path('app_ajouter_amis', { id: u.id }) }}" class="button">Ajouter en ami</a>
+            {% endif %}
         </div> 
     {% else %}
         <li>Aucun utilisateur trouvé.</li>

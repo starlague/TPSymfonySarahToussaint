@@ -16,6 +16,22 @@ class FriendshipRepository extends ServiceEntityRepository
         parent::__construct($registry, Friendship::class);
     }
 
+    /**
+     * @return Friendship[]
+     */
+    public function findAcceptedFriendships($user): array
+    {
+        return $this->createQueryBuilder('f')
+            ->where('(f.requester = :user OR f.receiver = :user)')
+            ->andWhere('f.status = :status')
+            ->setParameter('user', $user)
+            ->setParameter('status', 'accepted')
+            ->getQuery()
+            ->getResult();
+    }
+
+    // public function pendindFriendships($user, Friendship $friendship): 
+
 //    /**
 //     * @return Friendship[] Returns an array of Friendship objects
 //     */
