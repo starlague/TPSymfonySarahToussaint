@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 
+use App\Entity\User;
 use App\Form\EditUserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -42,8 +44,8 @@ class UserController extends AbstractController {
         ]);
     }
 
-    #[Route('/modifier/{id}', name:'app_modifier_profil', methods: ['GET', 'POST'])]
-    public function modifierUtilisateur($id, EntityManagerInterface $em, Request $request, SluggerInterface $slugger, UserRepository $u): Response {
+    #[Route('/modifier/profil/{id}', name:'app_modifier_profil', methods: ['GET', 'POST'])]
+    public function modifierUtilisateur($id, EntityManagerInterface $em, Request $request, SluggerInterface $slugger, UserRepository $u, UserPasswordHasherInterface $passwordHasher): Response {
         $user = $u->find($id);
 
         if (!$user) {
@@ -68,6 +70,13 @@ class UserController extends AbstractController {
                 $user->setAvatar($newFilename);
             }
 
+            $newPlainPassword = $form->get('password')->getData();
+
+            if ($newPlainPassword) {
+            $hashedPassword = $passwordHasher->hashPassword($user, $newPlainPassword);
+            $user->setPassword($hashedPassword);
+    }
+
             $em->persist($user);
             $em->flush();
 
@@ -77,9 +86,14 @@ class UserController extends AbstractController {
         return $this->render('home/modifierProfil.html.twig', [
             'form'=> $form,
             'user' => $user,
-        ]);
+        ]); 
     }
 
-
+    #[Route('/supprimer/utilisateur/{id}', name:'app_supprimer_utilisateur')]
+    public function supprimerUtiliseur(EntityManagerInterface $em, User $user): Response {
+        $em->remove($user);
+        $em->flush();
+        return $this->redirectToRoute('app_liste_utilisateurs');
+    }
 }
 

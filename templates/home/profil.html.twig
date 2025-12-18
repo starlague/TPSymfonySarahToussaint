@@ -7,16 +7,14 @@
     <div class="d-flex card w-25 align-items-center p-3">
         <h2>Votre profil</h2>
 
-        <div>
-            <div>
-                <img src="{{ asset('img/avatar/' ~ app.user.avatar) }}" alt="..." class="img-fluid rounded">
-            </div>
-            <div class="d-flex justify-content-center">
-                <p> {{ user.username }} </p>
-            </div>
-            <div class="d-flex justify-content-center">
-                <a href="{{ path('app_modifier_profil', { id: app.user.id }) }}" class="button">Modifier votre profil</a>
-            </div>
+        <img src="{{ asset('img/avatar/' ~ user.avatar) }}" alt="..." class="img-fluid rounded">
+        <p> {{ user.username }} </p>
+
+        <p>{{ user.email }}</p>
+
+        <div class="d-flex gap-5">
+            <a href="{{ path('app_modifier_profil', { id: user.id }) }}" class="button">Modifier</a>
+            <a href="{{ path('app_supprimer_utilisateur', { id: user.id }) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?')" class="button cancel">Supprimer votre compte</a>
         </div>
     </div>
 </div>

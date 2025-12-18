@@ -26,7 +26,7 @@ class RegistrationFormType extends AbstractType
                 'required' => true
             ])
             ->add('email', EmailType::class, [
-                'label'=> 'Email :',
+                'label'=> 'Adresse email :',
                 'required' => true
             ])
             ->add('avatar', FileType::class, [
