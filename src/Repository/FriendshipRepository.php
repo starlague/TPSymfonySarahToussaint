@@ -19,12 +19,12 @@ class FriendshipRepository extends ServiceEntityRepository
     /**
      * @return Friendship[]
      */
-    public function findAcceptedFriendships($user): array
+    public function findAcceptedFriendships(int $userId): array
     {
         return $this->createQueryBuilder('f')
-            ->where('(f.requester = :user OR f.receiver = :user)')
+            ->where('(f.requester = :userId OR f.receiver = :userId)')
             ->andWhere('f.status = :status')
-            ->setParameter('user', $user)
+            ->setParameter('userId', $userId)
             ->setParameter('status', 'accepted')
             ->getQuery()
             ->getResult();

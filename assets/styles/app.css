@@ -53,7 +53,7 @@ footer{
 }.submit:hover, .logout:hover, .cancel:hover, .button:hover {
     transform: scale(1.1); 
 }
-.logout, .cancel{
+.logout, .cancel, .decline{
     background-color: rgb(230, 112, 112);
     color: #374151;
 }

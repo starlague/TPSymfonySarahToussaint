@@ -19,7 +19,7 @@ class UserController extends AbstractController {
     public function listeUtilisateurs(UserRepository $user): Response {
         $currentUser = $this->getUser();
         if (!$currentUser) {
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_register');
         }
 
         $users = $user->findBy(
@@ -34,13 +34,13 @@ class UserController extends AbstractController {
 
     #[Route('/profil', name:'app_profil')]
     public function afficherProfil(): Response {
-        $user = $this->getUser();
-
-        if (!$user) {
-            throw $this->createAccessDeniedException();
+        $currentUser = $this->getUser();
+        if (!$currentUser) {
+           return $this->redirectToRoute('app_register');;
         }
+        
         return $this->render('user/profil.html.twig', [
-            'user'=> $user,
+            'user'=> $currentUser,
         ]);
     }
 

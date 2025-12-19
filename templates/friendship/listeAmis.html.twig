@@ -14,12 +14,12 @@
             </tr>
         </thead>
         <tbody>
-            {% for ami in amis %}
+            {% for friend in friends %}
                 <tr>
                     <td>
-                        <img src="{{ asset('img/avatar/' ~ ami.avatar) }}" alt="..." class="img-fluid rounded-circle" style="width: 50px; height: 50px;">
+                        <img src="{{ asset('img/avatar/' ~ friend.avatar) }}" alt="..." class="img-fluid rounded-circle" style="width: 50px; height: 50px;">
                     </td>
-                    <td>{{ ami.username }}</td>
+                    <td>{{ friend.username }}</td>
                 </tr>
             {% else %}
                 <tr>

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Friendship;
+use App\Entity\User;
 use App\Repository\FriendshipRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,39 +13,32 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class FriendshipController extends AbstractController {
-    #[Route('/amis', name: 'app_liste_amis')]
-    public function listeAmis(FriendshipRepository $friendshipRepository): Response {
-        $user = $this->getUser();
+    #[Route('/amis/{id}', name: 'app_liste_amis')]
+    public function listeAmis($id, FriendshipRepository $friendship): Response {
+        $currentUser = $this->getUser();
         
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
+        if (!$currentUser) {
+            return $this->redirectToRoute('app_register');
         }
-
-        // Récupérer toutes les amitiés acceptées où l'utilisateur est impliqué
-        $friendships = $friendshipRepository->findAcceptedFriendshipsFor($user);
         
-        // Extraire les utilisateurs amis (l'autre côté de la relation)
-        $amis = [];
-        foreach ($friendships as $friendship) {
-            if ($friendship->getRequester() === $user) {
-                // Si l'utilisateur est le requester, l'ami est le receiver
-                $amis[] = $friendship->getReceiver();
-            } else {
-                // Si l'utilisateur est le receiver, l'ami est le requester
-                $amis[] = $friendship->getRequester();
-            }
-        }
+        $friendships = $friendship->findAcceptedFriendships($id);
+        //récuperer l'id des users où le user son id en receiver ou requester et que la demande à pour status 'accepted'
+        $friends = array_map(function($f) use ($id) {
+            return $f->getRequester()->getId() === $id
+                ? $f->getReceiver()
+                : $f->getRequester();
+        }, $friendships);
 
-        return $this->render('home/listeAmis.html.twig', [
-            'amis' => $amis,
+        return $this->render('friendship/listeAmis.html.twig', [
+            'friends' => $friends,
         ]);
     }
 
     #[Route('amis/ajouter/{id}', name:'app_ajouter_amis')]
-    public function ajouterAmis($id, EntityManagerInterface $em, UserRepository $userRepository): Response {
-        $user = $this->getUser();
-        $friend = $userRepository->find($id);
-        $users = $userRepository->findBy(
+    public function ajouterAmis($id, EntityManagerInterface $em, UserRepository $user): Response {
+        $currentUser = $this->getUser();
+        $friend = $user->find($id);
+        $users = $user->findBy(
             [],
             ['username' => 'ASC']
         );
@@ -52,7 +46,7 @@ class FriendshipController extends AbstractController {
 
         $friendship = new Friendship();
 
-        $friendship->setRequester($user);
+        $friendship->setRequester($currentUser);
         $friendship->setReceiver($friend);
         $friendship->setStatus('pending');
 
@@ -62,17 +56,51 @@ class FriendshipController extends AbstractController {
         return $this->redirectToRoute('app_liste_utilisateurs');
     }
 
-    #[Route('amis/accapter/{id}', name:'app_demande_acceptee')]
-    public function accepterAmis($id, EntityManagerInterface $em, FriendshipRepository $friendshipRepository): Response {
-        $user = $this->getUser();
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
+    #[Route('amis/demande/{id}', name:'app_demande')]
+    public function demandeAmis($id, FriendshipRepository $friendship): Response {
+        $currentUser = $this->getUser();
+        if (!$currentUser) {
+            return $this->redirectToRoute('app_register');
         }
         
         //récupère la demande d'ami ou le user a son id en receiver
-        $friendshipRepository->getReceiver($user);
+        $friendships = $friendship->findBy(
+             array('receiver'=> $id,
+                            'status'=>'pending'),
+        );
 
-        return $this->render('home/listeAmis.html.twig');
+        //récupère l'id des requester user qui ont le user en receiver
+        $friends = array_map(fn($f) => $f->getRequester(), $friendships);
+
+        return $this->render('friendship/demandesAmis.html.twig', [
+            'friends' => $friends
+        ]);
     }
+
+    #[Route('amis/accepte/{id}', name:'app_accepte')]
+    public function accepteAmis($id, EntityManagerInterface $em, FriendshipRepository $friendship, User $user): Response {
+        $currentUser = $this->getUser();
+        if (!$currentUser) {
+            return $this->redirectToRoute('app_register');
+        }
+
+        //id reciver et id requester pour set le status en 'accepted'
+        $receiverId = $currentUser->getId();
+        $requesterId = $id;
+
+        $friendship = $friendship->findOneBy([
+            'requester' => $requesterId,
+            'receiver' => $receiverId,
+            'status' => 'pending',
+        ]);
+
+        if ($friendship) {
+            $friendship->setStatus('accepted');
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('app_liste_amis', ['id' => $receiverId]);
+    }
+    
 
 }
