@@ -9,7 +9,7 @@
 
 <div class="d-grid w-75 mx-auto gap-5" style="grid-template-columns: repeat(5, 1fr);">
     {% for u in users %}
-        <div class="card p-2 d-flex justify-content-center align-items-center">
+        <div class="card p-2 d-flex justify-content-center align-items-center gap-2">
             <div>
                 <img src="{{ asset('img/avatar/' ~ u.avatar) }}" alt="..." class="img-fluid rounded-circle"> 
             </div>
@@ -18,6 +18,8 @@
             </div>
             {% if app.user.id != u.id %}
                 <a href="{{ path('app_ajouter_amis', { id: u.id }) }}" class="button">Ajouter en ami</a>
+            {% else %}
+                <p class="you">Vous</p> 
             {% endif %}
         </div> 
     {% else %}

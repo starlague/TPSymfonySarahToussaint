@@ -6,23 +6,24 @@ body {
     min-height: 100vh;
     margin: 0;
 }
-
 header {
     background-color: #A5B4FC;
     padding: 10px;
     border-radius: 0px 0px 30px 30px;
     box-shadow: 0px 5px 15px gray;
+    height: 100px;
 }
-
 main{
     padding: 10px;
     flex: 1;
 }
-
 nav{
     padding: 20px;
 }
-
+.not-underline{
+    text-decoration: none;
+    color: #374151;
+}
 footer{
     background-color: #A5B4FC;
     padding: 16px;
@@ -49,7 +50,7 @@ footer{
 .submit {
     background-color: #FBCFE8;
     color: #374151;
-}.submit:hover {
+}.submit:hover, .logout:hover, .cancel:hover, .button:hover {
     transform: scale(1.1); 
 }
 .logout, .cancel{
@@ -57,7 +58,20 @@ footer{
     color: #374151;
 }
 
+/* style des images */
 img{
     aspect-ratio: 1/1;
     width: 200px;
+}
+
+.you{
+    color: #C4B5FD;
+    border: #C4B5FD solid 1px;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+.you:hover{
+    color: white;
+    border: white solid 1px;
+    background-color: #C4B5FD;
 }

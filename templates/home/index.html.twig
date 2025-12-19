@@ -10,8 +10,8 @@
     <div class="d-grid gap-5 p-5" style="grid-template-columns: repeat(3, 1fr);">
         <div class="d-flex align-items-center card p-2"> 
             <img src="{{ asset('img/utilisateurs.png') }}" alt="..." class="img-fluid">
-            <h3>Gérer vos amis</h3>
-            <p>Ajoutez et supprimez facilement vos amis.</p>
+            <h3 class="text-center">Gérer vos amis</h3>
+            <p class="text-center">Ajoutez et supprimez facilement vos amis.</p>
             <a href="{{ path('app_liste_amis') }}" class="button">Voir votre liste d'amis</a>
         </div>
         <div class="d-flex align-items-center card p-2">
@@ -20,14 +20,14 @@
             {% else %}
                 <img src="{{ asset('img/utilisateur.png') }}" alt="..." class="img-fluid rounded">
             {% endif %}
-            <h3>Personnaliser votre profil</h3>
-            <p>Modifiez vos informations personnelles et votre photo de profil.</p>
+            <h3 class="text-center">Personnaliser votre profil</h3>
+            <p class="text-center">Modifiez vos informations personnelles et votre photo de profil.</p>
             <a href="{{ path('app_profil') }}" class="button mb-3">Voir votre profil</a>
         </div>
         <div class="d-flex align-items-center card p-2">
             <img src="{{ asset('img/discuter.png') }}" alt="..." class="img-fluid">
-            <h3>Nous contacter</h3>
-            <p>Besoin d'aide? N'hésitez pas à nous contacter.</p>
+            <h3 class="text-center">Nous contacter</h3>
+            <p class="text-center">Besoin d'aide? N'hésitez pas à nous contacter.</p>
             <a href="{{ path('app_contact') }}" class="button">Nous contacter</a>
         </div>
     </div>

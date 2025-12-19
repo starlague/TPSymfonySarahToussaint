@@ -6,7 +6,29 @@
         <h2>Liste des amis</h2>
     </div>
 
-    <div class="d-grid w-75 mx-auto gap-5" style="grid-template-columns: repeat(5, 1fr);">
+    <table>
+        <thead>
+            <tr>
+                <th>Avatar</th>
+                <th>Nom d'utilisateur</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ami in amis %}
+                <tr>
+                    <td>
+                        <img src="{{ asset('img/avatar/' ~ ami.avatar) }}" alt="..." class="img-fluid rounded-circle" style="width: 50px; height: 50px;">
+                    </td>
+                    <td>{{ ami.username }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">Aucun ami trouvé.</td>
+                </tr>
+            {% endfor %}
+    </table>
+
+    {# <div class="d-grid w-75 mx-auto gap-5" style="grid-template-columns: repeat(5, 1fr);">
         {% for ami in amis %}
             <div class="card p-2 d-flex justify-content-center align-items-center">
                 <div>
@@ -21,5 +43,5 @@
                 <p>Aucun ami trouvé.</p>
             </div>
         {% endfor %}
-    </div>
+    </div> #}
 {% endblock %}
