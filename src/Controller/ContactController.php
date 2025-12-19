@@ -24,7 +24,7 @@ class ContactController extends AbstractController {
             $email = new Email; 
             $email              
                 ->from($data['email'])
-                ->to('nathalie.tuernal@gmail.com')
+                ->to('carnet.amis@gmail.com')
                 ->subject($data['issue'])
                 ->text('Quelqu\'un vous a contacté via le formulaire en ligne. Voici le message : ' . PHP_EOL . $data['message']);
 

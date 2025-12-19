@@ -18,12 +18,12 @@
             {% block header %}
             <div class="d-flex align-items-center">
                 <h1>Carnet d'amis</h1>
-                <div class="ms-auto">
+                <div class="d-flex gap-3 ms-auto">
                     {% if app.user %}
                         <a href="{{ path('app_logout') }}" class="button logout">Déconnexion</a>
                     {% else %}
-                        <a href="{{ path('app_login') }}" class="button log">Connexion<a/>
-                        <a href="{{ path('app_register') }}" class="button sign">Inscription<a/>
+                        <a href="{{ path('app_login') }}" class="button log">Connexion</a>
+                        <a href="{{ path('app_register') }}" class="button sign">Inscription</a>
                     {% endif %}
                 </div>
             </div>
@@ -32,11 +32,14 @@
         <br>
         <main>
             <nav>
-                <a href="{{ path('app_home') }}" class="button">Accueil</a>
-                <a href="{{ path('app_liste_utilisateurs') }}" class="button">Liste des utilisateurs</a>
-                {% if app.user %}
-                    <a href="{{ path('app_demande', { id: app.user.id }) }}" class="button">Demandes d'amis</a>
-                {% endif %}
+                <div class="d-flex gap-3 mb-4">
+                    <a href="{{ path('app_home') }}" class="button">Accueil</a>
+                    <a href="{{ path('app_liste_utilisateurs') }}" class="button">Liste des utilisateurs</a>
+                    {% if app.user %}
+                        <a href="{{ path('app_demande', { id: app.user.id }) }}" class="button">Demandes d'amis</a>
+                        <a href="{{ path('app_liste_amis', { id: app.user.id }) }}" class="button">Liste d'amis</a>
+                    {% endif %}
+                </div>
             </nav>
             {% block body %}{% endblock %}
         </main>
@@ -61,7 +64,7 @@
                 <div>
                     <p class="fs-4"><strong>À propos :</strong></p>
                     <ul>
-                        <li><a href="" class="not-underline">Nous</a></li>
+                        <li><a href="" class="not-underline">Moi</a></li>
                         <li><a href="{{ path('app_contact') }}" class="not-underline">Contact</a></li>
                     </ul>
                 </div>

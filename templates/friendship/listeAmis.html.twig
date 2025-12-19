@@ -1,47 +1,32 @@
 {% extends 'base.html.twig' %}
-{% block title %}Carnet d'amis - Liste des amis{% endblock %}
+{% block title %}Carnet d'amis - Liste d'amis{% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-center">
-        <h2>Liste des amis</h2>
+    <div class="d-flex justify-content-center flex-column align-items-center">
+        <h2>Vos amis</h2>
+    
+        <table class="table w-75">
+            <thead>
+                <tr>
+                    <th scope="col">Avatar</th>
+                    <th scope="col">Nom d'utilisateur</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for friend in friends %}
+                    <tr class="align-middle">
+                        <th scope="row">
+                            <img src="{{ asset('img/avatar/' ~ friend.avatar) }}" alt="..." class="img-fluid rounded-circle" style="width: 50px; height: 50px;">
+                        </th>
+                        <td>{{ friend.username }}</td>
+                        <td><div class="d-flex"><a href="" class="button cancel">Supprimer</a></div></td>
+                    </tr>
+                {% else %}
+                    <tr> 
+                        <td colspan="3" class="text-center">Aucun ami trouvé.</td>
+                    </tr>
+                {% endfor %}
+        </table>
     </div>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Avatar</th>
-                <th>Nom d'utilisateur</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for friend in friends %}
-                <tr>
-                    <td>
-                        <img src="{{ asset('img/avatar/' ~ friend.avatar) }}" alt="..." class="img-fluid rounded-circle" style="width: 50px; height: 50px;">
-                    </td>
-                    <td>{{ friend.username }}</td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="2">Aucun ami trouvé.</td>
-                </tr>
-            {% endfor %}
-    </table>
-
-    {# <div class="d-grid w-75 mx-auto gap-5" style="grid-template-columns: repeat(5, 1fr);">
-        {% for ami in amis %}
-            <div class="card p-2 d-flex justify-content-center align-items-center">
-                <div>
-                    <img src="{{ asset('img/avatar/' ~ ami.avatar) }}" alt="..." class="img-fluid rounded-circle"> 
-                </div>
-                <div>
-                    {{ ami.username }} 
-                </div>
-            </div> 
-        {% else %}
-            <div class="w-100 text-center">
-                <p>Aucun ami trouvé.</p>
-            </div>
-        {% endfor %}
-    </div> #}
 {% endblock %}

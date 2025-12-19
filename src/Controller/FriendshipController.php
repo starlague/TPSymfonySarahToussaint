@@ -38,11 +38,6 @@ class FriendshipController extends AbstractController {
     public function ajouterAmis($id, EntityManagerInterface $em, UserRepository $user): Response {
         $currentUser = $this->getUser();
         $friend = $user->find($id);
-        $users = $user->findBy(
-            [],
-            ['username' => 'ASC']
-        );
-
 
         $friendship = new Friendship();
 
@@ -102,5 +97,13 @@ class FriendshipController extends AbstractController {
         return $this->redirectToRoute('app_liste_amis', ['id' => $receiverId]);
     }
     
+    #[Route('supprimer/ami/{id}', name:'app_supprimer_ami')]
+    public function accepteBmis(EntityManagerInterface $em, Friendship $friendship) {
+        $em->remove($friendship);
+        $em->flush();
+        return $this->redirectToRoute('app_liste_amis',[
+            'id' => $this->getUser()->getId()
+        ]);
+    }
 
 }

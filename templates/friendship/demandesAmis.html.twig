@@ -2,33 +2,36 @@
 {% block title %}Carnet d'amis - Demandes d'amis{% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-center">
-        <h2>Liste des demandes d'amis</h2>
-    </div>
+    <div class="d-flex justify-content-center flex-column align-items-center">
+        <h2>Vos demandes d'amis</h2>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Avatar</th>
-                <th>Nom d'utilisateur</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for friend in friends %}
+        <table class="table w-75">
+            <thead>
                 <tr>
-                    <td>
-                        <img src="{{ asset('img/avatar/' ~ friend.avatar) }}" alt="..." class="img-fluid rounded-circle" style="width: 50px; height: 50px;">
-                    </td>
-                    <td>{{ friend.username }}</td>
-                    <td>
-                        <a href="{{ path('app_accepte', { id: friend.id }) }}" class="button accept">Accepter</a>
-                        <a href="" class="button decline">Refuser</a> 
+                    <th scope="col">Avatar</th>
+                    <th scope="col">Nom d'utilisateur</th>
+                    <th scope="col">Actions</th>
                 </tr>
-            {% else %}
-                <tr>
-                    <td colspan="2">Aucune demande d'ami trouvée.</td>  
-                </tr> 
-            {% endfor %}
-    </table>
+            </thead>
+            <tbody>
+                {% for friend in friends %}
+                    <tr class="align-middle">
+                        <th scope="row">
+                            <img src="{{ asset('img/avatar/' ~ friend.avatar) }}" alt="..." class="img-fluid rounded-circle" style="width: 50px; height: 50px;">
+                        </th>
+                        <td>{{ friend.username }}</td>
+                        <td>
+                            <div class="d-flex gap-3">
+                                <a href="{{ path('app_accepte', { id: friend.id }) }}" class="button accept">Accepter</a>
+                                <a href="" class="button decline">Refuser</a> 
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3" class="text-center">Aucune demande d'ami trouvée.</td>  
+                    </tr> 
+                {% endfor %}
+        </table>
+    </div>
 {% endblock %}

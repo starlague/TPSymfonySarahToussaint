@@ -57,6 +57,9 @@ footer{
     background-color: rgb(230, 112, 112);
     color: #374151;
 }
+.accept{
+    background-color: rgb(144, 235, 205);
+}
 
 /* style des images */
 img{
