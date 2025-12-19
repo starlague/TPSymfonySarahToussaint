@@ -26,7 +26,7 @@ class UserController extends AbstractController {
             [],
             ['username' => 'ASC']
         );
-        return $this->render('home/listeUtilisateurs.html.twig', [
+        return $this->render('user/listeUtilisateurs.html.twig', [
             'users' => $users,
         ]);
     }
@@ -39,7 +39,7 @@ class UserController extends AbstractController {
         if (!$user) {
             throw $this->createAccessDeniedException();
         }
-        return $this->render('home/profil.html.twig', [
+        return $this->render('user/profil.html.twig', [
             'user'=> $user,
         ]);
     }
@@ -83,7 +83,7 @@ class UserController extends AbstractController {
             return $this->redirectToRoute('app_profil');
         }
 
-        return $this->render('home/modifierProfil.html.twig', [
+        return $this->render('user/modifierProfil.html.twig', [
             'form'=> $form,
             'user' => $user,
         ]); 
